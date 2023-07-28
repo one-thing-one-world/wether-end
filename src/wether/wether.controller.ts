@@ -6,8 +6,14 @@ export class WetherController {
   constructor(private readonly wetherService: WetherService) {}
 
   @Get()
-  async getWeather(@Query('city') city: string): Promise<any> {
-    const result = await this.wetherService.getWeather(city);
-    return result;
+  async getWeather(@Query('districtCode') districtCode: string): Promise<any> {
+    try {
+      const result = await this.wetherService.getWeather(districtCode);
+      return result;
+    } catch (error) {
+      return {
+        result: `some err:${error}`,
+      };
+    }
   }
 }
